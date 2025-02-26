@@ -24,7 +24,7 @@ span {
     background-image: linear-gradient(var(--hili), var(--hili));
     background-size: 4px 100%;
     background-repeat: no-repeat;
-    background-position: 0 90%;
+    background-position: 0% 90%;
     display: flex;
     justify-content: left;
     text-align: left;
@@ -114,6 +114,10 @@ a:visited {
 }
 
 #info {
+    /*
+    box-shadow: rgba(184, 194, 215, 0.30) 0px 6px 9px 0px;
+    border-radius: 8px;
+    */
     line-height: 1.5em;
     font-size: 18px;
     text-align: left;
