@@ -1,30 +1,9 @@
 function introduce() {
-    if (localStorage.getItem("theme") == "dark") {
-        toggleTheme();
-    }
-    const x = document.getElementById("curtain");
-    const y = document.getElementsByClassName("subinfo");
-    const b = document.getElementById("mode");
-    x.classList.toggle("introduce");
-    for (let i = 0; i < y.length; i++) {
-        y[i].classList.toggle("introduce");
-    }
-    b.classList.toggle("introduce");
-}
-
-function toggleTheme() {
-    document.body.classList.toggle("dark");
-    if (document.body.classList.contains("dark")) {
-        document.getElementById("mode").src = "assets/light.svg"
-    }
-    else {
-        document.getElementById("mode").src = "assets/dark.svg"
-    }
-    if (document.body.className != "dark") {
-        localStorage.setItem("theme", "light");
-    }
-    else {
-        localStorage.setItem("theme", "dark");
+    const curtain = document.getElementById("curtain");
+    const subinfo = document.getElementsByClassName("subinfo");
+    curtain.classList.toggle("introduce");
+    for (let i = 0; i < subinfo.length; i++) {
+        subinfo[i].classList.toggle("introduce");
     }
 }
 
