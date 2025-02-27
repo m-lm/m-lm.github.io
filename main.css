@@ -12,7 +12,7 @@ html {
 
 body {
     background: linear-gradient(var(--bg), 80%, var(--bottom));
-    font-family: "Baskerville", "Lora", "Merriweather", "Playfair Display", "Inter", "Roboto", sans-serif;
+    font-family: "Lora", "Merriweather", "Baskerville", "Playfair Display", "Inter", "Roboto", sans-serif; /* 18px Baskerville or 16px Lora */
     text-align: center;
     color: var(--txt);
     transition: color 0.2s ease;
@@ -22,7 +22,7 @@ span {
     padding-left: 12px;
     margin: 8px 0px 8px 0px;
     background-image: linear-gradient(var(--hili), var(--hili));
-    background-size: 4px 100%;
+    background-size: 1% 20%;
     background-repeat: no-repeat;
     background-position: 0% 90%;
     display: flex;
@@ -44,32 +44,26 @@ span {
     margin-left: 25%;
     margin-right: 25%;
     padding: 8px;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
 }
 
 #name {
-    text-align: left;
     color: var(--txt);
+    /* text-transform: lowercase; */
+    margin-top: 16px;
     font-weight: 500;
-    margin: 12px;
     font-size: 32px;
     letter-spacing: 0.1em;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
-    transition: all 0.8s ease;
     background-image: linear-gradient(var(--hili), var(--hili));
     background-repeat: no-repeat;
     background-position: 0% 100%;
     background-size: 10% 0%;
+    transition: all 0.8s ease;
 }
-
-/*
-#name::first-letter {
-    text-shadow: -1px -1px 0px var(--bg);
-}
-*/
 
 #name:hover {
     background-position: 0% 100%;
@@ -114,18 +108,15 @@ a:visited {
 }
 
 #info {
-    /*
-    box-shadow: rgba(184, 194, 215, 0.30) 0px 6px 9px 0px;
-    border-radius: 8px;
-    */
     line-height: 1.5em;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     margin-left: 25%;
     margin-right: 25%;
 }
 
 .subinfo {
+    /* box-shadow: rgba(184, 194, 215, 0.30) 0px 6px 42px 9px; */
     opacity: 0;
     transition: opacity 1s ease-in-out; 
 }
