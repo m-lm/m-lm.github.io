@@ -38,7 +38,6 @@ body {
 
 #name {
     color: var(--txt);
-    /* text-transform: lowercase; */
     margin-top: 16px;
     font-weight: 500;
     font-size: 32px;
@@ -51,6 +50,10 @@ body {
     background-position: 0% 100%;
     background-size: 10% 0%;
     transition: all 0.8s ease;
+}
+
+#name::first-letter {
+    text-shadow: -2px -1px 1px var(--bg);
 }
 
 #name:hover {
