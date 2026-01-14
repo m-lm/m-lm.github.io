@@ -7,13 +7,16 @@ type Props = {
   underline?: boolean;
 }
 
-const { href, external, underline = true, ...rest } = Astro.props;
+const { href, external, underline = false, ...rest } = Astro.props;
 ---
 
 <a 
   href={href} 
   target={ external ? "_blank" : "_self" } 
-  class={cn("inline-block decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out")}
+  class={cn(
+    "inline-block text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out",
+    underline && "relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-black/25 dark:after:bg-white/50 hover:after:w-full after:transition-all after:duration-300 after:ease-in-out"
+  )}
   {...rest}>
   <slot/>
 </a>

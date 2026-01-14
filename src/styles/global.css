@@ -36,18 +36,18 @@ footer {
 article {
   @apply max-w-full prose dark:prose-invert prose-img:mx-auto prose-img:my-auto;
   @apply prose-headings:font-semibold prose-p:font-serif;
-  @apply prose-headings:text-black prose-headings:dark:text-white;
+  @apply prose-headings:text-orange-950 prose-headings:dark:text-orange-100;
 }
 
 @layer utilities {
   article a {
-    @apply font-sans text-current underline underline-offset-2;
-    @apply decoration-black/15 dark:decoration-white/30;
+    @apply font-sans text-orange-700 dark:text-orange-400 underline underline-offset-2;
+    @apply decoration-orange-600/40 dark:decoration-orange-500/40;
     @apply transition-colors duration-300 ease-in-out;
   }
   article a:hover {
-    @apply text-black dark:text-white;
-    @apply decoration-black/25 dark:decoration-white/50;
+    @apply text-orange-800 dark:text-orange-300;
+    @apply decoration-orange-600/70 dark:decoration-orange-500/70;
   }
 }
 
