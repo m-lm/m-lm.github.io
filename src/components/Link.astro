@@ -15,7 +15,7 @@ const { href, external, underline = false, ...rest } = Astro.props;
   target={ external ? "_blank" : "_self" } 
   class={cn(
     "inline-block text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out",
-    underline && "relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-black/25 dark:after:bg-white/50 hover:after:w-full after:transition-[width] after:duration-300 after:ease-in-out"
+    underline && "relative after:absolute after:bottom-0 after:left-0 after:h-[2.5px] after:w-0 after:bg-orange-500/40 dark:after:bg-orange-400/40 hover:after:w-full after:transition-[width] after:duration-300 after:ease-in-out"
   )}
   {...rest}>
   <slot/>

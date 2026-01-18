@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import Container from "@components/Container.astro";
+import ArrowCard from "@components/ArrowCard.astro";
+import BackToPrev from "@components/BackToPrev.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const tags = [...new Set(posts.flatMap(post => post.data.tags || []))];
+  
+  return tags.map(tag => {
+    const slug = tag.toLowerCase().replace(/\s+/g, '-');
+    return {
+      params: { tag: slug },
+      props: { 
+        originalTag: tag,
+        posts: posts
+          .filter(post => !post.data.draft && post.data.tags?.includes(tag))
+          .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+      }
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { originalTag, posts } = Astro.props;
+---
+
+<PageLayout title={`Posts tagged "${originalTag}"`} description={`All posts tagged with ${originalTag}`}>
+  <Container>
+    <div>
+      <BackToPrev href="/blog">
+        Back to blog
+      </BackToPrev>
+    </div>
+    <div class="space-y-10 mt-10">
+      <div class="font-semibold capitalize text-black dark:text-white">
+        {originalTag}
+      </div>
+      <ul class="flex flex-col gap-4">
+        {posts.map(post => (
+          <li>
+            <ArrowCard entry={post}/>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Container>
+</PageLayout>
