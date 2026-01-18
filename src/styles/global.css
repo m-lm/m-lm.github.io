@@ -48,7 +48,7 @@ article {
   }
   article a:hover {
     @apply text-orange-800 dark:text-orange-300;
-    @apply decoration-orange-400/70 dark:decoration-orange-300/70;
+    @apply decoration-orange-500/70 dark:decoration-orange-300/70;
   }
 }
 
