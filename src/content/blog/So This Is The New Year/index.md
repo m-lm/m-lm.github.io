@@ -3,6 +3,7 @@ title: "So This Is The New Year"
 description: "An introduction"
 date: "Jan 11 2026"
 draft: false
+tags: []
 ---
 
 > I wish the world was flat like the old days  

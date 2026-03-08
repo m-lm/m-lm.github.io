@@ -73,6 +73,8 @@ const { title, description, image = "/nano.png" } = Astro.props;
 </script>
 
 <script is:inline>
+  const LAST_PATH_KEY = "astro-nano:last-path";
+
   function init() {
     preloadTheme();
     onScroll();
@@ -89,12 +91,76 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
   function animate() {
     const animateElements = document.querySelectorAll(".animate");
+    const currentPath = window.location.pathname;
+    const previousPath = getPreviousPath();
+
+    if (shouldSkipEnterAnimation(previousPath, currentPath)) {
+      animateElements.forEach((element) => {
+        const htmlElement = element;
+        htmlElement.style.transition = "none";
+        htmlElement.classList.add("show");
+      });
+
+      requestAnimationFrame(() => {
+        animateElements.forEach((element) => {
+          const htmlElement = element;
+          htmlElement.style.transition = "";
+        });
+      });
+
+      saveCurrentPath();
+      return;
+    }
 
     animateElements.forEach((element, index) => {
       setTimeout(() => {
         element.classList.add("show");
       }, index * 150);
     });
+
+    saveCurrentPath();
+  }
+
+  function isTagsPage(pathname) {
+    return pathname.startsWith("/blog/tags/");
+  }
+
+  function isBlogPostPage(pathname) {
+    if (!pathname.startsWith("/blog/")) {
+      return false;
+    }
+
+    return pathname !== "/blog" && pathname !== "/blog/" && !isTagsPage(pathname);
+  }
+
+  function shouldSkipEnterAnimation(fromPath, toPath) {
+    return Boolean(fromPath && isTagsPage(fromPath) && isBlogPostPage(toPath));
+  }
+
+  function getPreviousPath() {
+    const savedPath = sessionStorage.getItem(LAST_PATH_KEY);
+    if (savedPath) {
+      return savedPath;
+    }
+
+    if (!document.referrer) {
+      return null;
+    }
+
+    try {
+      const referrerURL = new URL(document.referrer);
+      if (referrerURL.origin !== window.location.origin) {
+        return null;
+      }
+
+      return referrerURL.pathname;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveCurrentPath() {
+    sessionStorage.setItem(LAST_PATH_KEY, window.location.pathname);
   }
 
   function onScroll() {

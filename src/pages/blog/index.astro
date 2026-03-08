@@ -8,6 +8,10 @@ import { BLOG } from "@consts";
 const data = (await getCollection("blog"))
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const tags = [...new Set(data.flatMap(post => post.data.tags || []))].sort((a, b) =>
+  a.localeCompare(b)
+);
   
 type Acc = {
   [year: string]: CollectionEntry<"blog">[];
@@ -31,6 +35,15 @@ const years = Object.keys(posts).sort((a, b) => parseInt(b) - parseInt(a));
       <div class="animate font-semibold text-black dark:text-white">
         Blog
       </div>
+      {tags.length > 0 && (
+        <div class="animate flex gap-2 flex-wrap mt-2">
+          {tags.map(tag => (
+            <a href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="lowercase select-none px-2 py-1 text-xs rounded bg-black/5 dark:bg-white/10 hover:opacity-80 transition-opacity duration-300">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
       <div class="space-y-4">
         {years.map(year => (
           <section class="animate space-y-4">
