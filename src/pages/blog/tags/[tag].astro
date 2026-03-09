@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import ArrowCard from "@components/ArrowCard.astro";
@@ -24,7 +24,22 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.params;
-const { originalTag, posts } = Astro.props;
+const { originalTag, posts } = Astro.props as {
+  originalTag: string;
+  posts: CollectionEntry<"blog">[];
+};
+
+const postsByYear: Record<string, CollectionEntry<"blog">[]> = {};
+
+posts.forEach((post) => {
+  const year = post.data.date.getFullYear().toString();
+  if (!postsByYear[year]) {
+    postsByYear[year] = [];
+  }
+  postsByYear[year].push(post);
+});
+
+const years = Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a));
 ---
 
 <PageLayout title={`Posts tagged "${originalTag}"`} description={`All posts tagged with ${originalTag}`}>
@@ -38,13 +53,24 @@ const { originalTag, posts } = Astro.props;
       <div class="font-semibold capitalize text-black dark:text-white">
         {originalTag}
       </div>
-      <ul class="flex flex-col gap-4">
-        {posts.map(post => (
-          <li>
-            <ArrowCard entry={post}/>
-          </li>
+      <div class="space-y-4">
+        {years.map(year => (
+          <section class="space-y-4">
+            <div class="font-semibold text-black dark:text-white">
+              {year}
+            </div>
+            <div>
+              <ul class="flex flex-col gap-4">
+                {postsByYear[year].map(post => (
+                  <li>
+                    <ArrowCard entry={post}/>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
         ))}
-      </ul>
+      </div>
     </div>
   </Container>
 </PageLayout>
