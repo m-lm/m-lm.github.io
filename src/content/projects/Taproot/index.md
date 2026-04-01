@@ -1,7 +1,7 @@
 ---
 title: "Taproot"
 description: "Key-value store in C++"
-date: "Jan 11 2026"
+date: "Jan 2025"
 repoURL: "https://github.com/m-lm/taproot"
 ---
 
